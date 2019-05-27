@@ -1,9 +1,11 @@
 
+//**NOT WORKING */
+
 //VARIABLES
 //Options to select.
-var letters = "aeiou";
+var letters = ["a", "e", "i", "o", "u"];
 //Countdown of Guesses left
-var guessesLeft = 9;
+var guessesLeft = 3;
 // Win & Losses counter
 var win = 0;
 var loss = 0;
@@ -30,24 +32,24 @@ var updateGuessesSoFar = function() {
 
 //Reset
 var reset = function() {
-    guessesLeft = 9;
+    guessesLeft = 3;
     lettersGuessed = [];
     updatecomputerGuess();
     updateguessesLeft();
     updateGuessesSoFar();
-}
+};
 
 
 updateguessesLeft();
-updateGuessesSoFar();
+updatecomputerGuess();
 
 
-document.onekeydown = function(event) {
+document.onkeydown = function(event) {
 
     //Turns letter input into lower case, then it adds to an array of letters already used and reduces number of guesses left
     //Update Guesses left and Guesses so far on the page
     var letters = event.key.toLowerCase();
-    lettersGuessed.push(letter);
+    lettersGuessed.push(letters);
     guessesLeft--;
     updateguessesLeft();
     updateGuessesSoFar();
@@ -67,4 +69,4 @@ document.onekeydown = function(event) {
         reset();
     }
 
-}
+};
