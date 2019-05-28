@@ -1,6 +1,3 @@
-
-//**NOT WORKING */
-
 //VARIABLES
 //Options to select.
 var letters = ["a", "e", "i", "o", "u"];
@@ -16,22 +13,22 @@ var computerGuess = null;
 
 //FUNCTIONS
 //Random selection function
-var updatecomputerGuess = function() {
-var computerGuess = letters[Math.floor(Math.random() * letters.length)];
+var updatecomputerGuess = function () {
+    computerGuess = letters[Math.floor(Math.random() * letters.length)];
 };
 
 //Updates Guesses left
-var updateguessesLeft = function() {
+var updateguessesLeft = function () {
     document.querySelector("#guessLeft").innerHTML = guessesLeft;
 };
 
 //Updates Guesses so far
-var updateGuessesSoFar = function() {
-    document.querySelector("#GuessesSoFar").innerHTML = lettersGuessed.join(", ");   
+var updateGuessesSoFar = function () {
+    document.querySelector("#GuessesSoFar").innerHTML = lettersGuessed.join(", ");
 };
 
 //Reset
-var reset = function() {
+var reset = function () {
     guessesLeft = 3;
     lettersGuessed = [];
     updatecomputerGuess();
@@ -44,29 +41,31 @@ updateguessesLeft();
 updatecomputerGuess();
 
 
-document.onkeydown = function(event) {
+document.onkeydown = function (event) {
 
-    //Turns letter input into lower case, then it adds to an array of letters already used and reduces number of guesses left
-    //Update Guesses left and Guesses so far on the page
-    var letters = event.key.toLowerCase();
-    lettersGuessed.push(letters);
-    guessesLeft--;
-    updateguessesLeft();
-    updateGuessesSoFar();
+    if (event.keyCode === 65 || event.keyCode === 69 || event.keyCode === 73 || event.keyCode === 79 || event.keyCode === 85) {
 
-   //If statement if the user guesses the correct letter, the user wins the game
-    if (letters === computerGuess) {
-        win++;
-        document.querySelector("#wins").innerHTML = win;
-        reset();
 
+        //Turns letter input into lower case, then it adds to an array of letters already used and reduces number of guesses left
+        //Update Guesses left and Guesses so far on the page
+        var letters = event.key.toLowerCase();
+        lettersGuessed.push(letters);
+        guessesLeft--;
+        updateguessesLeft();
+        updateGuessesSoFar();
+
+        //If statement if the user guesses the correct letter, the user wins the game
+        if (letters === computerGuess) {
+            win++;
+            document.querySelector("#wins").innerHTML = win;
+            reset();
+        }
+
+        //If statement if the user reaches 0 tries out of 9, the user loses the game
+        if (guessesLeft === 0) {
+            loss++;
+            document.querySelector("#losses").innerHTML = loss;
+            reset();
+        }
     }
-
-    //If statement if the user reaches 0 tries out of 9, the user loses the game
-    if (guessesLeft === 0) {
-        loss++;
-        document.querySelector("#losses").innerHTML = loss;
-        reset();
-    }
-
 };
